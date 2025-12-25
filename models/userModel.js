@@ -20,8 +20,9 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         match: [
-            /\S+@\s+\.\S+/,
-            'lese fill a valid email address']
+            /\S+@\S+\.\S+/,
+            'please fill a valid email address'
+        ],
     },
     password: {
         type: String,
@@ -31,7 +32,7 @@ const userSchema = new mongoose.Schema({
         ],
         minLength: 6
     }
-}, {timestamp: true})
+}, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)
 

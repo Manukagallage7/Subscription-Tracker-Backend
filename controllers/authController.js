@@ -13,7 +13,7 @@ export const signUp = async (req, res, next) => {
     try{
         const { name, email, password} = req.body
         //Check if a user already exists
-        const exitingUser = await UserActivation.findOne({email})
+        const exitingUser = await User.findOne({email})
 
         if(exitingUser) {
             const error = new Error('User already exists')
@@ -27,7 +27,7 @@ export const signUp = async (req, res, next) => {
 
         const newUser = await User.create([{name,email,password:hashedPassword}], { session})
 
-        const token = jwt.sign({userId: newUser[0]._id}, JWT_SECRET, {expressIn: JWT_EXPIRES_IN})
+        const token = jwt.sign({userId: newUser[0]._id}, JWT_SECRET, {expiresIn: JWT_EXPIRES_IN})
         
         await session.commitTransaction()
         session.endSession()
